@@ -31,7 +31,7 @@ class Bash {
         }
         console.log(event.key);
         if (event.key === "Backspace") {
-            if (this.commands[this.cursorLine].length > 0) {
+            if (this.cursorChar > 0) {
                 this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar - 1) + this.commands[this.cursorLine].substring(this.cursorChar);
                 this.cursorChar--;
                 this.update();
