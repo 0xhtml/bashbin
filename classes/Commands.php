@@ -6,7 +6,7 @@ class Commands
     private $token = "";
     private $commands = [""];
 
-    public function __construct($db)
+    public function __construct(mysqli $db)
     {
         $this->db = $db;
     }
@@ -26,7 +26,8 @@ class Commands
             return false;
         }
 
-        $this->commands = json_decode($result->fetch_object()->commands);
+        $result = $result->fetch_assoc();
+        $this->commands = json_decode($result["commands"]);
         $this->token = $token;
 
         return true;
@@ -40,10 +41,10 @@ class Commands
     public function getCommandsJSArray()
     {
         $JSCommands = "[";
-        foreach ($this->commands as $command) {
+        foreach ($this->commands as $key => $value) {
             $JSCommands .= "\"";
-            $JSCommands .= str_replace("\"", "\\\"", htmlspecialchars($command));
-            $JSCommands .= "\"";
+            $JSCommands .= str_replace("\"", "\\\"", htmlspecialchars($value));
+            $JSCommands .= "\",";
         }
         $JSCommands .= "]";
         return $JSCommands;
@@ -61,9 +62,9 @@ class Commands
         }
 
         $this->commands = $commands;
+        $json_commands = json_encode($this->commands);
 
         $statement = $this->db->prepare("SELECT * FROM commands WHERE commands = ?");
-        $json_commands = json_encode($this->commands);
         $statement->bind_param("s", $json_commands);
 
         if (!$statement->execute()) {
@@ -81,7 +82,7 @@ class Commands
         $this->genToken();
 
         $statement = $this->db->prepare("INSERT INTO commands (token, commands) VALUES (?, ?)");
-        $statement->bind_param("ss", $this->token, $this->commands);
+        $statement->bind_param("ss", $this->token, $json_commands);
 
         if (!$statement->execute()) {
             return false;

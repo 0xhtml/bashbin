@@ -92,4 +92,20 @@ class Bash {
         }
         this.elem.innerHTML = this.startText + this.lineStart + tmpCommands.join(this.lineStart);
     }
+
+    send() {
+        let form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "?");
+        form.setAttribute("hidden", "");
+
+        let textarea = document.createElement("textarea");
+        textarea.setAttribute("name", "bash");
+        textarea.value = JSON.stringify(this.commands);
+
+        form.appendChild(textarea);
+        document.body.appendChild(form);
+
+        form.submit();
+    }
 }

@@ -47,16 +47,21 @@ $commands = new Commands($db);
 
 if (isset($_POST["bash"])) {
     $userCommands = $_POST["bash"];
-    if ($commands->save($userCommands)) {
-        header("Location: ?" . $commands->getToken());
-        die();
+    $userCommands = json_decode($_POST["bash"]);
+    if (json_last_error() == JSON_ERROR_NONE and count($userCommands) > 0) {
+        if ($commands->save($userCommands)) {
+            header("Location: ?" . $commands->getToken());
+            die();
+        }
     }
 } else {
     if (isset($_SERVER["QUERY_STRING"])) {
         $userToken = $_SERVER["QUERY_STRING"];
         $userToken = trim($userToken);
         if (strlen($userToken) == 10) {
-            $commands->load($userToken);
+            if (!$commands->load($userToken)) {
+                die();
+            }
         }
     }
 }
@@ -72,13 +77,14 @@ if (isset($_POST["bash"])) {
 </head>
 <body>
 <div id="toolbar">
-    <button>Save</button>
+    <button onclick="bash.send()">Save</button>
 </div>
 <div id="bash"><?= htmlspecialchars(START_TEXT) ?></div>
 <script src="js/script.js"></script>
 <script>
+    let bash;
     window.addEventListener('load', function () {
-        new Bash(document.getElementById("bash"), <?= $commands->getCommandsJSArray() ?>, "<?= str_replace("\n", "\\n", htmlspecialchars(START_TEXT)) ?>");
+        bash = new Bash(document.getElementById("bash"), <?= $commands->getCommandsJSArray() ?>, "<?= str_replace("\n", "\\n", htmlspecialchars(START_TEXT)) ?>");
     });
 </script>
 </body>
