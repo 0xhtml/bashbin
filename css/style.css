@@ -29,7 +29,7 @@ html, body {
     line-height: 17px;
 }
 
-#toolbar > input[type="submit"], #toolbar > button {
+#toolbar > button {
     height: 100%;
     border: none;
     margin: 0;
@@ -38,7 +38,21 @@ html, body {
     color: #ecf0f1;
 }
 
-#toolbar > input[type="submit"]:hover, #toolbar > button:hover {
+#toolbar > button:hover {
     background: rgba(0, 0, 0, 0.3);
     cursor: pointer;
+}
+
+#cursor {
+    display: inline-block;
+    width: 3px;
+}
+
+#cursor::after {
+    content: '█';
+    width: 1px;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+    padding-left: 1px;
 }

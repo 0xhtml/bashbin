@@ -4,9 +4,9 @@ class Commands
 {
     private $db;
     private $token = "";
-    private $commands = "";
+    private $commands = [""];
 
-    public function __construct(mysqli $db)
+    public function __construct($db)
     {
         $this->db = $db;
     }
@@ -26,7 +26,7 @@ class Commands
             return false;
         }
 
-        $this->commands = $result->fetch_object()->commands;
+        $this->commands = json_decode($result->fetch_object()->commands);
         $this->token = $token;
 
         return true;
@@ -37,12 +37,24 @@ class Commands
         return $this->commands;
     }
 
+    public function getCommandsJSArray()
+    {
+        $JSCommands = "[";
+        foreach ($this->commands as $command) {
+            $JSCommands .= "\"";
+            $JSCommands .= str_replace("\"", "\\\"", htmlspecialchars($command));
+            $JSCommands .= "\"";
+        }
+        $JSCommands .= "]";
+        return $JSCommands;
+    }
+
     public function getToken()
     {
         return $this->token;
     }
 
-    public function save(string $commands)
+    public function save(array $commands)
     {
         if ($this->commands == $commands) {
             return false;
@@ -51,7 +63,8 @@ class Commands
         $this->commands = $commands;
 
         $statement = $this->db->prepare("SELECT * FROM commands WHERE commands = ?");
-        $statement->bind_param("s", $this->commands);
+        $json_commands = json_encode($this->commands);
+        $statement->bind_param("s", $json_commands);
 
         if (!$statement->execute()) {
             return false;
