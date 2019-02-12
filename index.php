@@ -74,7 +74,7 @@ if (isset($_POST["bash"])) {
 <div id="toolbar">
     <button>Save</button>
 </div>
-<div id="bash"></div>
+<div id="bash"><?= htmlspecialchars(START_TEXT) ?></div>
 <script src="js/script.js"></script>
 <script>
     window.addEventListener('load', function () {
