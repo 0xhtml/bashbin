@@ -31,9 +31,9 @@ if (isset($_POST["bash"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>0xhtml - The Bashbin</title>
+    <title>The Bashbin</title>
     <meta name="description"
-          content="With 0xhtml you can store your bash commands and share them via a link with your friends.">
+          content="With Bashbin you can store your bash commands and share them via a link with your friends.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
