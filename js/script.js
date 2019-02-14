@@ -1,11 +1,10 @@
 class Bash {
-    constructor(elem, commands, startText = "Bash", lineStart = "\nuser@0xhtml:~$ ", cursor = "<span id=\"cursor\"></span>") {
+    constructor(elem, commands = [""], startText = "", lineStart = "\n") {
         this.elem = elem;
         this.commands = commands;
         this.startText = startText;
         this.lineStart = lineStart;
         this.cursorVisible = document.hasFocus();
-        this.cursor = cursor;
         this.cursorLine = this.commands.length - 1;
         this.cursorChar = this.commands[this.cursorLine].length;
 
@@ -88,7 +87,7 @@ class Bash {
     update() {
         let tmpCommands = this.commands.slice();
         if (this.cursorVisible) {
-            tmpCommands[this.cursorLine] = tmpCommands[this.cursorLine].substring(0, this.cursorChar) + this.cursor + tmpCommands[this.cursorLine].substring(this.cursorChar);
+            tmpCommands[this.cursorLine] = tmpCommands[this.cursorLine].substring(0, this.cursorChar) + "<span id=\"cursor\"></span>" + tmpCommands[this.cursorLine].substring(this.cursorChar);
         }
         this.elem.innerHTML = this.startText + this.lineStart + tmpCommands.join(this.lineStart);
     }
