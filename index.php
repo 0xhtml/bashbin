@@ -32,17 +32,19 @@ if (isset($_POST["bash"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>The Bashbin</title>
+    <title>Bashbin - The Pastebin for bash commands</title>
+    <link rel="shortcut icon" href="favicon.ico">
     <meta name="description"
           content="With Bashbin you can store your bash commands and share them via a link with your friends.">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
 </head>
 <body>
 <div id="toolbar">
     <button onclick="bash.send()">Save</button>
 </div>
 <div id="bash">
-    <h1>Welcome to Bashbin</h1>
+    <h1 id="headline">Bashbin</h1>
     <p id="links">
         Webpage:&nbsp; https://bashbin.000webhostapp.com<br>
         Source:&nbsp;&nbsp; https://github.com/0xhtml/bashbin
@@ -57,16 +59,12 @@ if (isset($_POST["bash"])) {
     <p id="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
     <div id="input"></div>
 </div>
-<script src="js/script.js"></script>
 <script>
-    let bash;
-    window.addEventListener('load', function () {
-        bash = new Bash(
-            document.getElementById("input"),
-            <?= $commands->getCommandsJSArray() ?>,
-            "<?= str_replace("\n", "\\n", LINE_START) ?>"
-        );
-    });
+    let bash = new Bash(
+        document.getElementById("input"),
+        <?= $commands->getCommandsJSArray() ?>,
+        "<?= str_replace("\n", "\\n", LINE_START) ?>"
+    );
 </script>
 </body>
 </html>
