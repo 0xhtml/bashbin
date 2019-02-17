@@ -44,10 +44,10 @@ if (isset($_POST["bash"])) {
     <button onclick="bash.send()">Save</button>
 </div>
 <div id="bash">
-    <h1 id="headline">Bashbin</h1>
+    <h1 id="headline">The Bashbin</h1>
     <p id="links">
-        Webpage:&nbsp; https://bashbin.000webhostapp.com<br>
-        Source:&nbsp;&nbsp; https://github.com/0xhtml/bashbin
+        Webpage:&nbsp; <a href="https://bashbin.000webhostapp.com">https://bashbin.000webhostapp.com</a><br>
+        Source:&nbsp;&nbsp; <a href="https://github.com/0xhtml/bashbin">https://github.com/0xhtml/bashbin</a>
     </p>
 
     <p id="sysinfo">

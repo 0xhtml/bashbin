@@ -27,13 +27,21 @@ html, body {
     height: calc(100vh - 2.8rem);
     padding: 0.4rem;
     background: #2c3e50;
-    color: #ecf0f1;
     font-family: monospace;
     font-size: 0.9rem;
 }
 
-#bash > * {
+#bash * {
     font-size: inherit;
+    color: #ecf0f1;
+}
+
+#bash a {
+    text-decoration: none;
+}
+
+#bash a:hover {
+    text-decoration: underline;
 }
 
 .motd {
