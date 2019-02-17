@@ -45,6 +45,9 @@ if (isset($_POST["bash"])) {
 </div>
 <div id="bash">
     <h1 id="headline">The Bashbin</h1>
+
+    <img src="favicon.ico" alt="Via Bashbin you can easily share bash commands." title="Welcome to Bashbin.">
+
     <p id="links">
         Webpage:&nbsp; <a href="https://bashbin.000webhostapp.com">https://bashbin.000webhostapp.com</a><br>
         Source:&nbsp;&nbsp; <a href="https://github.com/0xhtml/bashbin">https://github.com/0xhtml/bashbin</a>
@@ -58,6 +61,7 @@ if (isset($_POST["bash"])) {
 
     <p class="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
     <p class="motd">We are basically a Pastebin were you can store your bash commands.</p>
+
     <div id="input"></div>
 </div>
 <script>
