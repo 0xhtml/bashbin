@@ -2,15 +2,14 @@
 require_once "config.php";
 require_once "classes/Commands.php";
 
-$db = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
-
-$commands = new Commands($db);
+$commands = new Commands();
 
 if (isset($_POST["bash"])) {
     $userCommands = $_POST["bash"];
     $userCommands = json_decode($_POST["bash"]);
     if (json_last_error() == JSON_ERROR_NONE and count($userCommands) > 0) {
-        if ($commands->save($userCommands)) {
+        $db = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+        if ($commands->save($db, $userCommands)) {
             header("Location: ?" . $commands->getToken());
             die();
         }
@@ -20,7 +19,8 @@ if (isset($_POST["bash"])) {
         $userToken = $_SERVER["QUERY_STRING"];
         $userToken = trim($userToken);
         if (strlen($userToken) == 10) {
-            if (!$commands->load($userToken)) {
+            $db = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+            if (!$commands->load($db, $userToken)) {
                 die();
             }
         }
@@ -56,7 +56,8 @@ if (isset($_POST["bash"])) {
         &nbsp;&nbsp;Memory&nbsp;usage:&nbsp;5%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;Swap&nbsp;usage:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0%
     </p>
 
-    <p id="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
+    <p class="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
+    <p class="motd">We are basically a Pastebin were you can store your bash commands.</p>
     <div id="input"></div>
 </div>
 <script>

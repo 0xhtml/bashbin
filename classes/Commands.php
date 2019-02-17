@@ -2,18 +2,12 @@
 
 class Commands
 {
-    private $db;
     private $token = "";
     private $commands = [""];
 
-    public function __construct(mysqli $db)
+    public function load(mysqli $db, string $token)
     {
-        $this->db = $db;
-    }
-
-    public function load(string $token)
-    {
-        $statement = $this->db->prepare("SELECT * FROM saves WHERE token = ?");
+        $statement = $db->prepare("SELECT * FROM saves WHERE token = ?");
         $statement->bind_param("s", $token);
 
         if (!$statement->execute()) {
@@ -55,7 +49,7 @@ class Commands
         return $this->token;
     }
 
-    public function save(array $commands)
+    public function save(mysqli $db, array $commands)
     {
         if ($this->commands == $commands) {
             return false;
@@ -64,7 +58,7 @@ class Commands
         $this->commands = $commands;
         $json_commands = json_encode($this->commands);
 
-        $statement = $this->db->prepare("SELECT * FROM saves WHERE commands = ?");
+        $statement = $db->prepare("SELECT * FROM saves WHERE commands = ?");
         $statement->bind_param("s", $json_commands);
 
         if (!$statement->execute()) {
@@ -79,9 +73,9 @@ class Commands
             return true;
         }
 
-        $this->genToken();
+        $this->genToken($db);
 
-        $statement = $this->db->prepare("INSERT INTO saves (token, commands) VALUES (?, ?)");
+        $statement = $db->prepare("INSERT INTO saves (token, commands) VALUES (?, ?)");
         $statement->bind_param("ss", $this->token, $json_commands);
 
         if (!$statement->execute()) {
@@ -91,11 +85,11 @@ class Commands
         return true;
     }
 
-    private function genToken()
+    private function genToken(mysqli $db)
     {
         while (true) {
             $token = substr(sha1(uniqid()), 0, 10);
-            $statement = $this->db->prepare("SELECT * FROM saves WHERE token = ?");
+            $statement = $db->prepare("SELECT * FROM saves WHERE token = ?");
             $statement->bind_param("s", $token);
 
             if (!$statement->execute()) {
