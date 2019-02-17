@@ -23,8 +23,8 @@ html, body {
 }
 
 #bash {
-    width: calc(100% - 0.8rem);
-    height: calc(100vh - 2.8rem);
+    min-height: calc(100vh - 2.8rem);
+    overflow-x: hidden;
     padding: 0.4rem;
     background: #2c3e50;
     font-family: monospace;
