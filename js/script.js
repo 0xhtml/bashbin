@@ -1,8 +1,7 @@
 class Bash {
-    constructor(elem, commands = [""], startText = "", lineStart = "\n") {
+    constructor(elem, commands = [""], lineStart = "") {
         this.elem = elem;
         this.commands = commands;
-        this.startText = startText;
         this.lineStart = lineStart;
         this.cursorVisible = document.hasFocus();
         this.cursorLine = this.commands.length - 1;
@@ -47,6 +46,9 @@ class Bash {
         if (event.key === "ArrowUp") {
             if (this.cursorLine > 0) {
                 this.cursorLine--;
+                if (this.cursorChar > this.commands[this.cursorLine].length) {
+                    this.cursorChar = this.commands[this.cursorLine].length;
+                }
                 this.update();
             }
             return;
@@ -54,6 +56,9 @@ class Bash {
         if (event.key === "ArrowDown") {
             if (this.cursorLine < this.commands.length - 1) {
                 this.cursorLine++;
+                if (this.cursorChar > this.commands[this.cursorLine].length) {
+                    this.cursorChar = this.commands[this.cursorLine].length;
+                }
                 this.update();
             }
             return;
@@ -70,7 +75,6 @@ class Bash {
                 this.cursorChar++;
                 this.update();
             }
-            return;
         }
     }
 
@@ -89,7 +93,7 @@ class Bash {
         if (this.cursorVisible) {
             tmpCommands[this.cursorLine] = tmpCommands[this.cursorLine].substring(0, this.cursorChar) + "<span id=\"cursor\"></span>" + tmpCommands[this.cursorLine].substring(this.cursorChar);
         }
-        this.elem.innerHTML = this.startText + this.lineStart + tmpCommands.join(this.lineStart);
+        this.elem.innerHTML = this.lineStart + tmpCommands.join("\n" + this.lineStart);
     }
 
     send() {

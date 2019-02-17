@@ -1,58 +1,57 @@
 html, body {
     padding: 0;
     margin: 0;
-}
-
-#bash {
-    width: calc(100% - 0.8rem);
-    height: calc(100vh - 2.8rem);
-    border: none;
-    padding: 0.4rem;
-    resize: none;
-    background: #2c3e50;
-    color: #ecf0f1;
-    margin: 0;
-    font-size: 14px;
-    font-family: monospace;
-    line-height: 17px;
-    white-space: pre;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 #toolbar {
     height: 2rem;
-    overflow: hidden;
     background: #34495e;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-family: monospace;
-    line-height: 17px;
 }
 
 #toolbar > button {
     height: 100%;
     border: none;
-    margin: 0;
     padding: 0 1rem;
     background: none;
     color: #ecf0f1;
+    cursor: pointer;
 }
 
 #toolbar > button:hover {
     background: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+}
+
+#bash {
+    width: calc(100% - 0.8rem);
+    height: calc(100vh - 2.8rem);
+    padding: 0.4rem;
+    background: #2c3e50;
+    color: #ecf0f1;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+#bash > * {
+    font-size: inherit;
+}
+
+#motd {
+    max-width: 60ch;
+}
+
+#input {
+    white-space: pre;
 }
 
 #cursor {
-    display: inline-block;
-    width: 3px;
+    padding-left: 1px;
+    padding-right: 2px;
 }
 
 #cursor::after {
     content: '█';
+    position: absolute;
     width: 1px;
     overflow: hidden;
-    display: inline-block;
-    position: absolute;
-    padding-left: 1px;
 }

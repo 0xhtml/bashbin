@@ -31,6 +31,7 @@ if (isset($_POST["bash"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>The Bashbin</title>
     <meta name="description"
           content="With Bashbin you can store your bash commands and share them via a link with your friends.">
@@ -40,16 +41,30 @@ if (isset($_POST["bash"])) {
 <div id="toolbar">
     <button onclick="bash.send()">Save</button>
 </div>
-<div id="bash"><?= htmlspecialchars(START_TEXT) ?></div>
+<div id="bash">
+    <h1>Welcome to Bashbin</h1>
+    <p id="links">
+        Webpage:&nbsp; https://bashbin.000webhostapp.com<br>
+        Source:&nbsp;&nbsp; https://github.com/0xhtml/bashbin
+    </p>
+
+    <p id="sysinfo">
+        &nbsp;&nbsp;System&nbsp;load:&nbsp;&nbsp;14.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;Processes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;84<br>
+        &nbsp;&nbsp;Usage&nbsp;of&nbsp;/:&nbsp;&nbsp;&nbsp;18.6%&nbsp;of&nbsp;1.5TB &nbsp;&nbsp;Users&nbsp;logged&nbsp;in:&nbsp;7&nbsp;<br>
+        &nbsp;&nbsp;Memory&nbsp;usage:&nbsp;5%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;Swap&nbsp;usage:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0%
+    </p>
+
+    <p id="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
+    <div id="input"></div>
+</div>
 <script src="js/script.js"></script>
 <script>
     let bash;
     window.addEventListener('load', function () {
         bash = new Bash(
-            document.getElementById("bash"),
+            document.getElementById("input"),
             <?= $commands->getCommandsJSArray() ?>,
-            "<?= str_replace("\n", "\\n", htmlspecialchars(START_TEXT)) ?>",
-            "<?= str_replace("\n", "\\n", htmlspecialchars(LINE_START)) ?>"
+            "<?= str_replace("\n", "\\n", LINE_START) ?>"
         );
     });
 </script>
