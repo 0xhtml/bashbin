@@ -22,17 +22,6 @@ class Bash {
 
     onKeyup(event) {
         if (event.key.length === 1) {
-            if (event.key == "<") {
-                event.key = "&lt;";
-            } else if (event.key == ">") {
-                event.key = "&gt;";
-            } else if (event.key == "&") {
-                event.key = "&amp;";
-            } else if (event.key == "\"") {
-                event.key = "&quot;";
-            } else if (event.key == "'") {
-                event.key = "&apos;";
-            }
             this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar) + event.key + this.commands[this.cursorLine].substring(this.cursorChar);
             this.cursorChar++;
             this.update();
@@ -101,10 +90,14 @@ class Bash {
 
     update() {
         let tmpCommands = this.commands.slice();
-        if (this.cursorVisible) {
-            tmpCommands[this.cursorLine] = tmpCommands[this.cursorLine].substring(0, this.cursorChar) + "<span id=\"cursor\"></span>" + tmpCommands[this.cursorLine].substring(this.cursorChar);
+        for (let i = 0; i < tmpCommands.length; i++) {
+            if (this.cursorVisible && i === this.cursorLine) {
+                tmpCommands[i] = tmpCommands[this.cursorLine].substring(0, this.cursorChar).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + "<span id=\"cursor\"></span>" + tmpCommands[this.cursorLine].substring(this.cursorChar).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            } else {
+                tmpCommands[i] = tmpCommands[i].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
         }
-        this.elem.innerHTML = this.lineStart + tmpCommands.join("\n" + this.lineStart);
+        this.elem.innerHTML = (this.lineStart + tmpCommands.join("\n" + this.lineStart));
     }
 
     send() {

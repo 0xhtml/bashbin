@@ -9,4 +9,4 @@ define("MYSQL_PASSWORD", "");
 define("MYSQL_DB",       "");
 
 // Line start
-define("LINE_START", "user@bashbin:~$ ");
+define("LINE_START", "<span class='green'>user@bashbin</span>:<span class='blue'>~</span>$ ");
