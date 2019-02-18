@@ -22,6 +22,17 @@ class Bash {
 
     onKeyup(event) {
         if (event.key.length === 1) {
+            if (event.key == "<") {
+                event.key = "&lt;";
+            } else if (event.key == ">") {
+                event.key = "&gt;";
+            } else if (event.key == "&") {
+                event.key = "&amp;";
+            } else if (event.key == "\"") {
+                event.key = "&quot;";
+            } else if (event.key == "'") {
+                event.key = "&apos;";
+            }
             this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar) + event.key + this.commands[this.cursorLine].substring(this.cursorChar);
             this.cursorChar++;
             this.update();
