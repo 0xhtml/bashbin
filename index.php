@@ -32,10 +32,10 @@ if (isset($_POST["bash"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bashbin - The Pastebin for bash commands</title>
+    <title>Bashbin - The Pastebin to easily share all your bash commands</title>
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="description"
-          content="With Bashbin you can store your bash commands and share them via a link with your friends.">
+          content="With Bashbin you can store your bash commands and share &#x2709; them via a link &#x261d; with your friends. A place to copy &#x2702; paste &#x270e; your bash commands.">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
 </head>
@@ -44,9 +44,7 @@ if (isset($_POST["bash"])) {
     <button onclick="bash.send()">Save</button>
 </div>
 <div id="bash">
-    <h1 id="headline">The Bashbin</h1>
-
-    <img src="favicon.ico" alt="Via Bashbin you can easily share bash commands." title="Welcome to Bashbin.">
+    <h1 id="headline">The Bashbin v1.0 <img src="favicon.ico" id="icon" alt="Via Bashbin you can easily share bash commands!" title="Welcome to the Bashbin"></h1>
 
     <p id="links">
         Webpage:&nbsp; <a href="https://bashbin.000webhostapp.com">https://bashbin.000webhostapp.com</a><br>
@@ -59,8 +57,9 @@ if (isset($_POST["bash"])) {
         &nbsp;&nbsp;Memory&nbsp;usage:&nbsp;5%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;Swap&nbsp;usage:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0%
     </p>
 
-    <p class="motd">Here you can store your bash commands and share them via a link to all of your friends.</p>
-    <p class="motd">We are basically a Pastebin were you can store your bash commands.</p>
+    <p class="motd">Here you can store your bash commands and share them via a link to all of your friends. If you don't have friends you can also store them for yourself.</p>
+    <p class="motd">We are basically a Pastebin were you can store your bash commands. We are a place to copy paste your bash commands to.</p>
+    <p class="motd">The easiest way to store your commands after you clicked "Save" is to just bookmark the page. How much more easily can it be?</p>
 
     <div id="input"></div>
 </div>

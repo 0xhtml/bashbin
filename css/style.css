@@ -30,6 +30,12 @@ html, body {
     background: rgba(0, 0, 0, 0.3);
 }
 
+#icon {
+    position: fixed;
+    top: -20px;
+    left: -20px;
+}
+
 #bash {
     min-height: calc(100vh - 2.8rem);
     overflow-x: hidden;
