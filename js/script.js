@@ -9,8 +9,11 @@ class Bash {
 
         this.update();
         let that = this;
-        window.addEventListener('keyup', function (e) {
-            that.onKeyup(e);
+        window.addEventListener('keyup', function (event) {
+            that.onKeyup(event);
+        });
+        window.addEventListener('paste', function (event) {
+            that.onPaste(event);
         });
         window.addEventListener('focus', function () {
             that.onFocus();
@@ -21,13 +24,19 @@ class Bash {
     }
 
     onKeyup(event) {
+        if (event.altKey || event.metaKey || event.ctrlKey) {
+            return;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+
         if (event.key.length === 1) {
             this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar) + event.key + this.commands[this.cursorLine].substring(this.cursorChar);
             this.cursorChar++;
             this.update();
             return;
         }
-        console.log(event.key);
         if (event.key === "Backspace") {
             if (this.cursorChar > 0) {
                 this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar - 1) + this.commands[this.cursorLine].substring(this.cursorChar);
@@ -76,6 +85,37 @@ class Bash {
                 this.update();
             }
         }
+    }
+
+    onPaste(event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        let input = event.clipboardData.getData("Text");
+        input = input.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+        let inputCommands = input.split("\n");
+
+        if (inputCommands.length === 0) {
+            return;
+        }
+
+        let pre = this.commands.slice(0, this.cursorLine);
+        let suf = this.commands.slice(this.cursorLine + 1);
+
+        let curPre = this.commands[this.cursorLine].substr(0, this.cursorChar);
+        let curSuf = this.commands[this.cursorLine].substring(this.cursorChar);
+
+        if (inputCommands.length > 1) {
+            this.cursorLine += inputCommands.length - 1;
+            this.cursorChar = 0;
+        }
+        this.cursorChar += inputCommands[inputCommands.length - 1].length;
+
+        inputCommands[0] = curPre + inputCommands[0];
+        inputCommands[inputCommands.length - 1] = inputCommands[inputCommands.length - 1] + curSuf;
+
+        this.commands = pre.concat(inputCommands).concat(suf);
+        this.update();
     }
 
     onFocus() {
