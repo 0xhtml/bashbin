@@ -44,7 +44,7 @@ if (isset($_POST["bash"])) {
     <button onclick="bash.send()">Save</button>
 </div>
 <div id="bash">
-    <h1 id="headline">The Bashbin v1.0 <img src="favicon.ico" id="icon" alt="Via Bashbin you can easily share bash commands!" title="Welcome to the Bashbin"></h1>
+    <h1 id="headline">The Bashbin v1.0 <img src="favicon.ico" class="hidden" alt="Via Bashbin you can easily share bash commands!" title="Welcome to the Bashbin"></h1>
 
     <p id="links">
         Webpage:&nbsp; <a href="https://bashbin.000webhostapp.com">https://bashbin.000webhostapp.com</a><br>

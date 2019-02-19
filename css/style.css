@@ -12,6 +12,14 @@ html, body {
     color: #3498db !important;
 }
 
+.hidden {
+    position: fixed;
+    top: -100px;
+    left: -100px;
+    width: 10px;
+    height: 10px;
+}
+
 #toolbar {
     height: 2rem;
     background: #34495e;
@@ -28,12 +36,6 @@ html, body {
 
 #toolbar > button:hover {
     background: rgba(0, 0, 0, 0.3);
-}
-
-#icon {
-    position: fixed;
-    top: -20px;
-    left: -20px;
 }
 
 #bash {

@@ -38,9 +38,28 @@ class Bash {
             return;
         }
         if (event.key === "Backspace") {
-            if (this.cursorChar > 0) {
+            if (this.cursorChar === 0) {
+                if (this.cursorLine !== 0) {
+                    this.cursorLine--;
+                    this.commands[this.cursorLine] = this.commands[this.cursorLine] + this.commands.splice(this.cursorLine + 1, 1);
+                    this.cursorChar = this.commands[this.cursorLine].length;
+                    this.update();
+                }
+            } else {
                 this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar - 1) + this.commands[this.cursorLine].substring(this.cursorChar);
                 this.cursorChar--;
+                this.update();
+            }
+            return;
+        }
+        if (event.key === "Delete") {
+            if (this.cursorChar === this.commands[this.cursorLine].length) {
+                if (this.cursorLine !== this.commands.length - 1) {
+                    this.commands[this.cursorLine] = this.commands[this.cursorLine] + this.commands.splice(this.cursorLine + 1, 1);
+                    this.update();
+                }
+            } else {
+                this.commands[this.cursorLine] = this.commands[this.cursorLine].substring(0, this.cursorChar) + this.commands[this.cursorLine].substring(this.cursorChar + 1);
                 this.update();
             }
             return;
