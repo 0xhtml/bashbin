@@ -41,8 +41,8 @@ class Bash {
             if (this.cursorChar === 0) {
                 if (this.cursorLine !== 0) {
                     this.cursorLine--;
-                    this.commands[this.cursorLine] = this.commands[this.cursorLine] + this.commands.splice(this.cursorLine + 1, 1);
                     this.cursorChar = this.commands[this.cursorLine].length;
+                    this.commands[this.cursorLine] = this.commands[this.cursorLine] + this.commands.splice(this.cursorLine + 1, 1);
                     this.update();
                 }
             } else {
@@ -65,7 +65,8 @@ class Bash {
             return;
         }
         if (event.key === "Enter") {
-            this.commands.push("");
+            this.commands.splice(this.cursorLine + 1, 0, this.commands[this.cursorLine].substring(this.cursorChar));
+            this.commands[this.cursorLine] = this.commands[this.cursorLine].substr(0, this.cursorChar);
             this.cursorLine++;
             this.cursorChar = 0;
             this.update();
